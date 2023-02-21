@@ -1,18 +1,27 @@
 
 import { useState } from 'react';
 import './App.scss';
+import { ImportanceStars } from './Importance/ImportanceStars';
+import { GlobalSVGSelector } from './svgSelector/GlobalSVGSelector';
+import Popup from './PopupAddTask/Popup';
+import Header from './Header/Header';
 
 
 
 function App() {
 
   const [boards, setBoards] = useState([
-    { id: 1, title: "Задачи", items: [{ id: 1, title: "Посрать" }, { id: 2, title: "Поспать" }] },
+    { id: 1, title: "Задачи", items: [{ id: 1, title: "Посрать", importance: '' }, { id: 2, title: "Поспать", importance: 'Не важно' }] },
     { id: 2, title: "В процессе", items: [] },
-    { id: 3, title: "Выполнено", items: [] },
+    { id: 3, title: "На проверке", items: [] },
+    { id: 4, title: "Выполнено", items: [] },
   ])
   const [currentBoard, setCurrentBoard] = useState(null)
   const [currentItem, setCurrentItem] = useState(null)
+  const [valueInput, setValueInput] = useState('')
+  const [importance, setImportance] = useState('')
+  const [newItem, setNewItem] = useState(null)
+  const [popupActive, setPopupActive] = useState(false)
 
   function dragOverHandler(e) {
     e.preventDefault()
@@ -36,6 +45,7 @@ function App() {
 
   function dropHandler(e, board, item) {
     e.preventDefault()
+    e.stopPropagation()
     e.target.style.boxShadow = "none"
     const currentIndex = currentBoard.items.indexOf(currentItem)
     currentBoard.items.splice(currentIndex, 1)
@@ -53,6 +63,8 @@ function App() {
       return b
     }))
   }
+
+
   function dropCardHandler(e, board) {
     board.items.push(currentItem)
 
@@ -70,26 +82,111 @@ function App() {
     }))
   }
 
+  function deleteElement(board, item) {
+
+
+    const currentIndex = board.items.indexOf(item)
+    board.items.splice(currentIndex, 1)
+
+    setBoards(boards.map(b => {
+
+      if (b.id === board.id) {
+        return board
+      }
+      return b
+    }))
+  }
+  function addImportance(e, board, item) {
+    if (e.keyCode == 13) {
+      setNewItem({
+        id: item.id,
+        title: item.title,
+        importance: importance,
+      })
+      const currentIndex = board.items.indexOf(item)
+      board.items.splice(currentIndex, 1)
+      board.items.splice(currentIndex, 0, newItem)
+      setBoards(boards.map(b => {
+
+        if (b.id === board.id) {
+          return board
+        }
+        return b
+      }))
+    }
+
+  }
+  function changeImportance(e, board, item) {
+    setImportance(e.target.value)
+
+  }
+
+  function handleInput(e) {
+    setValueInput(e.target.value)
+  }
+
+  function enterKeyDown(e, board) {
+    if (e.keyCode === 13) {
+      const addElem = { id: +(new Date()).getTime(), title: valueInput }
+      board.items.splice(board.items.length, 0, addElem)
+
+
+      setValueInput('')
+      setBoards(boards.map(b => {
+        if (b.id === board.id) {
+          return board
+        }
+
+        return b
+      }))
+    }
+  }
+
   return (
     <div className="app">
-      {boards.map(board =>
-        <div className='board'
-          onDragOver={(e) => dragOverHandler(e)}
-          onDrop={(e) => dropCardHandler(e, board)}
-        >
-          <div className='board__title'>{board.title}</div>
-          {board.items.map(item =>
-            <div className='item'
-              onDragOver={(e) => dragOverHandler(e)}
-              onDragLeave={(e) => dragLeaveHandler(e)}
-              onDragStart={(e) => dragStartHandler(e, board, item)}
-              onDragEnd={(e) => dragEndHandler(e)}
-              onDrop={(e) => dropHandler(e, board, item)}
-              draggable={true}
-            >
-              {item.title}
-            </div>)}
-        </div>)}
+
+      {popupActive
+        ? <Popup setPopupActive={setPopupActive} />
+        : <></>
+      }
+      <Header />
+      <div className='board__wrapper'>
+        {boards.map(board =>
+          <div className='board'
+            onDragOver={(e) => dragOverHandler(e)}
+            onDrop={(e) => dropCardHandler(e, board)}
+          >
+
+            <div className='board__title'>
+              {board.id === 1
+                ?
+                <div>
+                  {board.title}
+                  <button className='add__task' onClick={() => setPopupActive(true)}>+</button>
+                </div>
+                : <div>{board.title}</div>
+              }
+            </div>
+
+
+            {board.items.map(item =>
+              <div className='item'
+                onDragOver={(e) => dragOverHandler(e)}
+                onDragLeave={(e) => dragLeaveHandler(e)}
+                onDragStart={(e) => dragStartHandler(e, board, item)}
+                onDragEnd={(e) => dragEndHandler(e)}
+                onDrop={(e) => dropHandler(e, board, item)}
+                draggable={true}
+              >
+                <div className='item__text'>
+                  <p title={item.title}>{item.title}</p>
+                  <p>Важность: {item.importance}</p>
+
+                </div>
+                <label onClick={() => deleteElement(board, item)}>X</label>
+              </div>)}
+          </div>)}
+      </div>
     </div>
   );
 }
