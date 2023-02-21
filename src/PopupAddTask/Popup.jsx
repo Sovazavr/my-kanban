@@ -17,7 +17,7 @@ const Popup = ({ setPopupActive }) => {
 
                         <input type='text' id='importance' list='impList' className='text-field__input' placeholder='Важность' />
 
-                        <datalist id='impList'>
+                        <datalist id='impList' className='text-field__input__list'>
                             <option value='Основная' />
                             <option value='Важно' />
                             <option value='Не важно' />
