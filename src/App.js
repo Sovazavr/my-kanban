@@ -16,6 +16,7 @@ function App() {
     { id: 3, title: "На проверке", items: [] },
     { id: 4, title: "Выполнено", items: [] },
   ])
+  
   const [currentBoard, setCurrentBoard] = useState(null)
   const [currentItem, setCurrentItem] = useState(null)
   const [valueInput, setValueInput] = useState('')
@@ -142,6 +143,8 @@ function App() {
     }
   }
 
+  
+
   return (
     <div className="app">
 
@@ -162,7 +165,7 @@ function App() {
                 ?
                 <div>
                   {board.title}
-                  <button className='add__task' onClick={() => setPopupActive(true)}>+</button>
+                  <button id='add__task' className={popupActive ? 'add__task__click' : 'add__task'} onClick={() => setPopupActive(true)}>+</button>
                 </div>
                 : <div>{board.title}</div>
               }

@@ -3,17 +3,20 @@ import "./Popup.scss"
 
 const Popup = ({ setPopupActive }) => {
 
-   
-    
+
+
 
     return (
-        <div id='closing' className='wrapper__popup' onClick={()=>setPopupActive(false)}>
+        <div id='closing' className='wrapper__popup' onClick={() => setPopupActive(false)}>
             <div className='popup__dash' onClick={e => e.stopPropagation()}>
                 <div className='popup__title'>Новая задача</div>
                 <div className='popup__content'>
-                    <div className='3sd'>
-                        <input type='text' placeholder='Коротко о задаче' />
-                        <input type='text' id='importance' list='impList' placeholder='Важность' />
+                    <div className='popup__content__inputs'>
+
+                        <input type='text' className='text-field__input' placeholder='Коротко о задаче' />
+
+                        <input type='text' id='importance' list='impList' className='text-field__input' placeholder='Важность' />
+
                         <datalist id='impList'>
                             <option value='Основная' />
                             <option value='Важно' />
@@ -21,7 +24,7 @@ const Popup = ({ setPopupActive }) => {
                         </datalist>
                     </div>
 
-                    <textarea placeholder='А тут можно не коротко' />
+                    <textarea placeholder='А тут можно не коротко' className='text-field__textarea'/>
                 </div>
             </div>
         </div>
