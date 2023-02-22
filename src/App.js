@@ -20,8 +20,7 @@ function App() {
   const [currentBoard, setCurrentBoard] = useState(null)
   const [currentItem, setCurrentItem] = useState(null)
   const [valueInput, setValueInput] = useState('')
-  const [importance, setImportance] = useState('')
-  const [newItem, setNewItem] = useState(null)
+ 
   const [popupActive, setPopupActive] = useState(false)
 
   function dragOverHandler(e) {
@@ -97,30 +96,7 @@ function App() {
       return b
     }))
   }
-  function addImportance(e, board, item) {
-    if (e.keyCode == 13) {
-      setNewItem({
-        id: item.id,
-        title: item.title,
-        importance: importance,
-      })
-      const currentIndex = board.items.indexOf(item)
-      board.items.splice(currentIndex, 1)
-      board.items.splice(currentIndex, 0, newItem)
-      setBoards(boards.map(b => {
-
-        if (b.id === board.id) {
-          return board
-        }
-        return b
-      }))
-    }
-
-  }
-  function changeImportance(e, board, item) {
-    setImportance(e.target.value)
-
-  }
+ 
 
   function handleInput(e) {
     setValueInput(e.target.value)

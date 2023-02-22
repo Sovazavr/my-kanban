@@ -1,6 +1,11 @@
 .header{
     width: 100vw;
-    height: 10%;
+    height: 5vh;
+    background-color: var(#{--body-background-default});
+    margin-bottom: 5vh;
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
 }
 .change__theme {
     margin-right: 20px;
