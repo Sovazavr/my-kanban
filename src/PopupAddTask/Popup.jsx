@@ -1,8 +1,24 @@
-import React from 'react'
+import React, { useState } from 'react'
 import "./Popup.scss"
 
 const Popup = ({ setPopupActive, boards, setBoards }) => {
 
+    const [name, setName] = useState("")
+    const [info, setInfo] = useState("")
+    const [importance, setImportance] = useState("")
+
+
+    function addItems() {
+        const addElem = { id: +(new Date()).getTime(), title: name, importance: importance, info: info }
+
+        boards.map(b => {
+            if (b.id === 1) {
+                return b.items.push(addElem)
+            }
+        })
+        setBoards(boards)
+        setPopupActive(false)
+    }
 
 
 
@@ -13,9 +29,16 @@ const Popup = ({ setPopupActive, boards, setBoards }) => {
                 <div className='popup__content'>
                     <div className='popup__content__inputs'>
 
-                        <input type='text' className='text-field__input' placeholder='Коротко о задаче' />
+                        <input type='text'
+                            className='text-field__input'
+                            placeholder='Коротко о задаче'
+                            value={name} onChange={(e) => setName(e.target.value)}
+                        />
 
-                        <input type='text' id='importance' list='impList' className='text-field__input' placeholder='Важность' />
+                        <input type='text' id='importance' list='impList'
+                            className='text-field__input'
+                            placeholder='Важность'
+                            onChange={(e) => setImportance(e.target.value)} />
 
                         <datalist id='impList' className='text-field__input__list'>
                             <option value='Основная' />
@@ -24,8 +47,14 @@ const Popup = ({ setPopupActive, boards, setBoards }) => {
                         </datalist>
                     </div>
 
-                    <textarea placeholder='А тут можно не коротко' className='text-field__textarea' />
-                    <button className='popup__button'>добавить</button>
+                    <textarea placeholder='А тут можно не коротко'
+                        className='text-field__textarea'
+                        value={info}
+                        onChange={(e) => setInfo(e.target.value)}
+                    />
+                    <button className='popup__button' onClick={addItems}>
+                        добавить
+                    </button>
                 </div>
             </div>
         </div>

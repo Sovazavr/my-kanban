@@ -11,16 +11,16 @@ import Header from './Header/Header';
 function App() {
 
   const [boards, setBoards] = useState([
-    { id: 1, title: "Задачи", items: [{ id: 1, title: "Посрать", importance: '' }, { id: 2, title: "Поспать", importance: 'Не важно' }] },
+    { id: 1, title: "Задачи", items: [{ id: 1, title: "Посрать", importance: '', info: '' }, { id: 2, title: "Поспать", importance: 'Не важно', info: '' }] },
     { id: 2, title: "В процессе", items: [] },
     { id: 3, title: "На проверке", items: [] },
     { id: 4, title: "Выполнено", items: [] },
   ])
-  
+
   const [currentBoard, setCurrentBoard] = useState(null)
   const [currentItem, setCurrentItem] = useState(null)
   const [valueInput, setValueInput] = useState('')
- 
+
   const [popupActive, setPopupActive] = useState(false)
 
   function dragOverHandler(e) {
@@ -96,7 +96,7 @@ function App() {
       return b
     }))
   }
- 
+
 
   function handleInput(e) {
     setValueInput(e.target.value)
@@ -119,13 +119,13 @@ function App() {
     }
   }
 
-  
+
 
   return (
     <div className="app">
 
       {popupActive
-        ? <Popup setPopupActive={setPopupActive} boards={boards} setBoards={setBoards}/>
+        ? <Popup setPopupActive={setPopupActive} boards={boards} setBoards={setBoards} />
         : <></>
       }
       <Header />
