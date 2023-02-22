@@ -1,7 +1,7 @@
 import React from 'react'
 import "./Popup.scss"
 
-const Popup = ({ setPopupActive }) => {
+const Popup = ({ setPopupActive, boards, setBoards }) => {
 
 
 
@@ -24,7 +24,8 @@ const Popup = ({ setPopupActive }) => {
                         </datalist>
                     </div>
 
-                    <textarea placeholder='А тут можно не коротко' className='text-field__textarea'/>
+                    <textarea placeholder='А тут можно не коротко' className='text-field__textarea' />
+                    <button className='popup__button'>добавить</button>
                 </div>
             </div>
         </div>

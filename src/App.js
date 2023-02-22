@@ -125,7 +125,7 @@ function App() {
     <div className="app">
 
       {popupActive
-        ? <Popup setPopupActive={setPopupActive} />
+        ? <Popup setPopupActive={setPopupActive} boards={boards} setBoards={setBoards}/>
         : <></>
       }
       <Header />
