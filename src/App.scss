@@ -44,6 +44,23 @@
   justify-content: center;
   transition: 0.5s;
   color: var(#{--text-color-default});
+  user-select: none;
+  --ms-user-select: none;
+
+  /**
+             * Для мозилы
+             */
+  --moz-user-select: none;
+
+  /**
+             * Для конкверора
+             */
+  --khtml-user-select: none;
+
+  /**
+             * Для Сафари и Хрома
+             */
+  --webkit-user-select: none;
 }
 .board__input {
   font-size: 0.8rem;

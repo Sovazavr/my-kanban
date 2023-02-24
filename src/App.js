@@ -1,11 +1,11 @@
 
-import { useEffect, useLayoutEffect, useRef, useState } from 'react';
+import { useLayoutEffect, useRef, useState } from 'react';
 import './App.scss';
-import { ImportanceStars } from './Importance/ImportanceStars';
-import { GlobalSVGSelector } from './svgSelector/GlobalSVGSelector';
+
 import Popup from './PopupAddTask/Popup';
 import Header from './Header/Header';
 import { storage } from './Storage/storage';
+import InfoTask from './PopupAddTask/InfoTask';
 
 
 
@@ -23,7 +23,7 @@ function App() {
   useLayoutEffect(() => {
     if (firstRender.current) {
       firstRender.current = false
-      
+
     } else {
       storage.setItem('boards', boards);
     }
@@ -32,7 +32,7 @@ function App() {
 
   const [currentBoard, setCurrentBoard] = useState(null)
   const [currentItem, setCurrentItem] = useState(null)
-  const [valueInput, setValueInput] = useState('')
+  const [selectedItem, setSelectedItem] = useState({})
 
   const [popupActive, setPopupActive] = useState(false)
 
@@ -111,7 +111,7 @@ function App() {
   }
 
 
-  
+
 
 
 
@@ -121,6 +121,10 @@ function App() {
       {popupActive
         ? <Popup setPopupActive={setPopupActive} boards={boards} setBoards={setBoards} />
         : <></>
+      }
+      {Object.keys(selectedItem).length === 0
+        ? <></>
+        : <InfoTask selectedItem={selectedItem} setSelectedItem={setSelectedItem}/>
       }
       <Header />
       <div className='board__wrapper'>
@@ -151,6 +155,7 @@ function App() {
                   onDragEnd={(e) => dragEndHandler(e)}
                   onDrop={(e) => dropHandler(e, board, item)}
                   draggable={true}
+                  onClick={() => setSelectedItem(item)}
                 >
                   <div className='item__text'>
                     <p title={item.title}>{item.title}</p>

@@ -16,6 +16,7 @@ const Popup = ({ setPopupActive, boards, setBoards }) => {
             if (b.id === 1) {
                 return b.items.push(addElem)
             }
+            return b
         })
         setBoards(boards)
         storage.setItem('boards', boards)

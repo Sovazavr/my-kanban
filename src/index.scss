@@ -1,8 +1,18 @@
+@font-face {
+	font-family: 'Comfortaa';
+	src: url('./Fonts/fonts/comfortaa.eot'); /* IE 9 Compatibility Mode */
+	src: url('./Fonts/fonts/comfortaa.eot?#iefix') format('embedded-opentype'), /* IE < 9 */
+		url('./Fonts/fonts/comfortaa.woff2') format('woff2'), /* Super Modern Browsers */
+		url('./Fonts/fonts/comfortaa.woff') format('woff'), /* Firefox >= 3.6, any other modern browser */
+		url('./Fonts/fonts/comfortaa.ttf') format('truetype'), /* Safari, Android, iOS */
+		url('./Fonts/fonts/comfortaa.svg#comfortaa') format('svg'); /* Chrome < 4, Legacy iOS */
+}
 body {
   margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
-    sans-serif;
+  // font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
+  //   'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
+  //   sans-serif;
+  font-family: 'Comfortaa';
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   background: var(#{--body-background-default});

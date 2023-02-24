@@ -91,6 +91,7 @@
     border: none;
     color: var(#{--text-color-default});
     cursor: pointer;
+    font-family: 'Comfortaa';
     &:active{
         animation: add_button 1s;
     }
