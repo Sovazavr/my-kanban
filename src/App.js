@@ -127,7 +127,7 @@ function App() {
         : <InfoTask selectedItem={selectedItem} setSelectedItem={setSelectedItem}/>
       }
       <Header />
-      <div className='board__wrapper'>
+      <div className='boards__wrapper'>
         {boards.map(board =>
           <div className='board'
             onDragOver={(e) => dragOverHandler(e)}

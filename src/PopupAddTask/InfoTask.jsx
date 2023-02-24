@@ -27,7 +27,6 @@ const InfoTask = ({ selectedItem, setSelectedItem }) => {
                     <textarea placeholder='А тут можно не коротко'
                         className='text-field__textarea'
                         value={selectedItem.info}
-
                     />
 
                 </div>
