@@ -1,5 +1,6 @@
 import React, { useState } from 'react'
 import "./Popup.scss"
+import { storage } from '../Storage/storage'
 
 const Popup = ({ setPopupActive, boards, setBoards }) => {
 
@@ -17,6 +18,7 @@ const Popup = ({ setPopupActive, boards, setBoards }) => {
             }
         })
         setBoards(boards)
+        storage.setItem('boards', boards)
         setPopupActive(false)
     }
 

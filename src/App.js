@@ -1,21 +1,34 @@
 
-import { useState } from 'react';
+import { useEffect, useLayoutEffect, useRef, useState } from 'react';
 import './App.scss';
 import { ImportanceStars } from './Importance/ImportanceStars';
 import { GlobalSVGSelector } from './svgSelector/GlobalSVGSelector';
 import Popup from './PopupAddTask/Popup';
 import Header from './Header/Header';
+import { storage } from './Storage/storage';
 
 
 
 function App() {
 
-  const [boards, setBoards] = useState([
-    { id: 1, title: "Задачи", items: [{ id: 1, title: "Посрать", importance: '', info: '' }, { id: 2, title: "Поспать", importance: 'Не важно', info: '' }] },
+  const [firstBoards, setFirstBoards] = useState([
+    { id: 1, title: "Задачи", items: [] },
     { id: 2, title: "В процессе", items: [] },
     { id: 3, title: "На проверке", items: [] },
     { id: 4, title: "Выполнено", items: [] },
   ])
+  const [boards, setBoards] = useState(storage.getItem('boards') || firstBoards)
+
+  let firstRender = useRef(true)
+  useLayoutEffect(() => {
+    if (firstRender.current) {
+      firstRender.current = false
+      
+    } else {
+      storage.setItem('boards', boards);
+    }
+  }, [boards])
+
 
   const [currentBoard, setCurrentBoard] = useState(null)
   const [currentItem, setCurrentItem] = useState(null)
@@ -98,26 +111,7 @@ function App() {
   }
 
 
-  function handleInput(e) {
-    setValueInput(e.target.value)
-  }
-
-  function enterKeyDown(e, board) {
-    if (e.keyCode === 13) {
-      const addElem = { id: +(new Date()).getTime(), title: valueInput }
-      board.items.splice(board.items.length, 0, addElem)
-
-
-      setValueInput('')
-      setBoards(boards.map(b => {
-        if (b.id === board.id) {
-          return board
-        }
-
-        return b
-      }))
-    }
-  }
+  
 
 
 
@@ -148,22 +142,24 @@ function App() {
             </div>
 
 
-            {board.items.map(item =>
-              <div className='item'
-                onDragOver={(e) => dragOverHandler(e)}
-                onDragLeave={(e) => dragLeaveHandler(e)}
-                onDragStart={(e) => dragStartHandler(e, board, item)}
-                onDragEnd={(e) => dragEndHandler(e)}
-                onDrop={(e) => dropHandler(e, board, item)}
-                draggable={true}
-              >
-                <div className='item__text'>
-                  <p title={item.title}>{item.title}</p>
-                  <p>Важность: {item.importance}</p>
+            {
+              board.items.map(item =>
+                <div className='item'
+                  onDragOver={(e) => dragOverHandler(e)}
+                  onDragLeave={(e) => dragLeaveHandler(e)}
+                  onDragStart={(e) => dragStartHandler(e, board, item)}
+                  onDragEnd={(e) => dragEndHandler(e)}
+                  onDrop={(e) => dropHandler(e, board, item)}
+                  draggable={true}
+                >
+                  <div className='item__text'>
+                    <p title={item.title}>{item.title}</p>
+                    <p>Важность: {item.importance}</p>
 
-                </div>
-                <label onClick={() => deleteElement(board, item)}>X</label>
-              </div>)}
+                  </div>
+                  <label onClick={() => deleteElement(board, item)}>X</label>
+                </div>)
+            }
           </div>)}
       </div>
     </div>
