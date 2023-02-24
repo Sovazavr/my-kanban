@@ -12,15 +12,17 @@ const Header = () => {
     }
 
     return (
-        <div className='header'>
-            <div className="change__theme" onClick={changeTheme}>
+        <div className='header__wrapper'>
+            <div className='header'>
+                <div className="change__theme" onClick={changeTheme}>
 
-                <div className='change__theme__back'>
-                    <GlobalSVGSelector typeSvg={theme.theme == Theme.LIGHT ? "background_switch_light" : 'background_switch_dark'} />
-                    <div className={theme.theme == Theme.LIGHT ? 'change__theme__ball__left' : 'change__theme__ball__right'}>
-                        <GlobalSVGSelector typeSvg="ball" />
+                    <div className='change__theme__back'>
+                        <GlobalSVGSelector typeSvg={theme.theme == Theme.LIGHT ? "background_switch_light" : 'background_switch_dark'} />
+                        <div className={theme.theme == Theme.LIGHT ? 'change__theme__ball__left' : 'change__theme__ball__right'}>
+                            <GlobalSVGSelector typeSvg="ball" />
+                        </div>
+
                     </div>
-
                 </div>
             </div>
         </div>
