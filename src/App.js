@@ -6,6 +6,8 @@ import Popup from './PopupAddTask/Popup';
 import Header from './Header/Header';
 import { storage } from './Storage/storage';
 import InfoTask from './PopupAddTask/InfoTask';
+import { useEffect } from 'react';
+import { GlobalSVGSelector } from './svgSelector/GlobalSVGSelector';
 
 
 
@@ -18,6 +20,22 @@ function App() {
     { id: 4, title: "Выполнено", items: [] },
   ])
   const [boards, setBoards] = useState(storage.getItem('boards') || firstBoards)
+  const [addElemBool, setAddElemBool] = useState(false)
+
+  function styledImportance() {
+    const impElement = document.getElementsByClassName('item__importance')
+    for (let i = 0; i < impElement.length; i++) {
+      if (impElement[i].innerHTML === 'Основная') {
+        impElement[i].style.color = "red";
+      } else if (impElement[i].innerHTML === 'Важно') {
+        impElement[i].style.color = "orange";
+      } else if (impElement[i].innerHTML === 'Не важно') {
+        impElement[i].style.color = "green";
+      }
+    }
+
+  }
+
 
   let firstRender = useRef(true)
   useLayoutEffect(() => {
@@ -26,9 +44,17 @@ function App() {
 
     } else {
       storage.setItem('boards', boards);
+      styledImportance()
     }
   }, [boards])
 
+  useEffect(() => {
+    if (addElemBool) {
+      styledImportance()
+    }
+    return setAddElemBool(false)
+
+  }, [addElemBool]);
 
   const [currentBoard, setCurrentBoard] = useState(null)
   const [currentItem, setCurrentItem] = useState(null)
@@ -95,8 +121,8 @@ function App() {
     }))
   }
 
-  function deleteElement(board, item) {
-
+  function deleteElement(e, board, item) {
+    e.stopPropagation()
 
     const currentIndex = board.items.indexOf(item)
     board.items.splice(currentIndex, 1)
@@ -119,17 +145,29 @@ function App() {
     <div className="app">
 
       {popupActive
-        ? <Popup setPopupActive={setPopupActive} boards={boards} setBoards={setBoards} />
+        ? <Popup
+          setPopupActive={setPopupActive}
+          boards={boards}
+          setBoards={setBoards}
+          setAddElemBool={setAddElemBool}
+        />
         : <></>
       }
       {Object.keys(selectedItem).length === 0
         ? <></>
-        : <InfoTask selectedItem={selectedItem} setSelectedItem={setSelectedItem}/>
+        : <InfoTask
+          selectedItem={selectedItem}
+          setSelectedItem={setSelectedItem}
+          boards={boards}
+          setBoards={setBoards}
+          setAddElemBool={setAddElemBool}
+        />
       }
       <Header />
       <div className='boards__wrapper'>
         {boards.map(board =>
           <div className='board'
+            key={board.id}
             onDragOver={(e) => dragOverHandler(e)}
             onDrop={(e) => dropCardHandler(e, board)}
           >
@@ -149,20 +187,22 @@ function App() {
             {
               board.items.map(item =>
                 <div className='item'
+                  key={item.id}
                   onDragOver={(e) => dragOverHandler(e)}
                   onDragLeave={(e) => dragLeaveHandler(e)}
                   onDragStart={(e) => dragStartHandler(e, board, item)}
                   onDragEnd={(e) => dragEndHandler(e)}
                   onDrop={(e) => dropHandler(e, board, item)}
                   draggable={true}
-                  onClick={() => setSelectedItem(item)}
+                  onClick={() => setSelectedItem({ item: item, board: board })}
                 >
                   <div className='item__text'>
                     <p title={item.title}>{item.title}</p>
-                    <p>Важность: {item.importance}</p>
+
+                    <p id='importance' className='item__importance'>{item.importance}</p>
 
                   </div>
-                  <label onClick={() => deleteElement(board, item)}>X</label>
+                  <label onClick={(e) => deleteElement(e, board, item)}><GlobalSVGSelector typeSvg='close'/></label>
                 </div>)
             }
           </div>)}

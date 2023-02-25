@@ -67,6 +67,14 @@ export const GlobalSVGSelector = ({ typeSvg }) => {
                     <ellipse cx="11" cy="10.5769" rx="11" ry="10.5769" fill="#4793ff" />
                 </svg>
             )
+        case 'close':
+            return (
+                <svg width="14" height="15" viewBox="0 0 14 15" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M13.5 1.44287L0.5 14.4429" stroke="#000001" stroke-linecap="round" stroke-linejoin="round" />
+                    <path d="M0.5 1.44287L13.5 14.4429" stroke="#000001" stroke-linecap="round" stroke-linejoin="round" />
+                </svg>
+
+            )
         default:
             break;
     }
