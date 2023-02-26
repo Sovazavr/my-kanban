@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import "./Popup.scss"
-import { storage } from '../Storage/storage'
+import { storage } from '../../Storage/storage'
 
 const Popup = ({ setPopupActive, boards, setBoards, setAddElemBool }) => {
 

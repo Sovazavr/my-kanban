@@ -1,5 +1,23 @@
 @import "./styled/variables.scss";
 
+$small: 321px;
+$large: 1025px;
+@mixin respond-to($media) {
+  @if $media == handhelds {
+    @media only screen and (max-width: $small) {
+      @content;
+    }
+  } @else if $media == medium-screens {
+    @media only screen and (min-width: $small) and (max-width: $large) {
+      @content;
+    }
+  } @else if $media == wide-screens {
+    @media only screen and (min-width: $large) {
+      @content;
+    }
+  }
+}
+
 * {
   margin: 0;
   padding: 0;
@@ -13,13 +31,31 @@
   transition: 0.5s;
   background-color: var(#{--components-background-default});
 }
+
 .boards__wrapper {
   display: flex;
   align-items: center;
   justify-content: space-evenly;
   flex-wrap: wrap;
+  @include respond-to(medium-screens) {
+    all: initial;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    
+  }
 }
 
+.boards__slider {
+  overflow: hidden;
+}
+.boards__slider.grab {
+  cursor: grab;
+}
+.boards__slider.grabbing {
+  cursor: grabbing;
+}
 .board {
   transition: 0.5s;
   min-width: 300px;
@@ -36,6 +72,9 @@
   overflow-y: auto;
   background-color: var(#{--card-background-default});
   box-shadow: var(#{--card-shadow-default});
+  @include respond-to(medium-screens) {
+   
+  }
 }
 
 .board__title {
@@ -84,7 +123,7 @@
 
   label {
     cursor: pointer;
-    
+
     height: 100%;
     display: flex;
     align-items: center;

@@ -1,7 +1,7 @@
 import React from 'react'
-import { useTheme } from '../hooks/useTheme'
+import { useTheme } from '../../hooks/useTheme'
 import { GlobalSVGSelector } from '../svgSelector/GlobalSVGSelector'
-import { Theme } from '../ThemeChange/context/ThemeContext'
+import { Theme } from '../../ThemeChange/context/ThemeContext'
 import "./Header.scss"
 
 const Header = () => {
