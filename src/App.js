@@ -10,6 +10,7 @@ import { useEffect } from 'react';
 import { GlobalSVGSelector } from './Components/svgSelector/GlobalSVGSelector';
 import { BoardsComponent } from './Components/Boards/BoardsComponent';
 import { BoardsComponentMobile } from './Components/Boards/BoardsComponentMobile';
+import { useCallback } from 'react';
 
 
 
@@ -42,16 +43,23 @@ function App() {
 
   }
 
-  function sizeWindow() {
-    const windowInnerWidth = window.innerWidth
-    const windowInnerHeight = window.innerHeight
+  const sizeWindow = useCallback(
+    () => {
+      const windowInnerWidth = window.innerWidth
+      const windowInnerHeight = window.innerHeight
 
-    if (windowInnerWidth => 320 && windowInnerWidth <= 1025) {
-      setMobileDevice(true)
-    } else {
-      setMobileDevice(false)
-    }
-  }
+      if (windowInnerWidth >= 320 && windowInnerWidth <= 1025) {
+        setMobileDevice(true)
+      } else {
+        setMobileDevice(false)
+      }
+      
+    },
+    [],
+  )
+
+
+
 
 
   let firstRender = useRef(true)
@@ -59,6 +67,7 @@ function App() {
     if (firstRender.current) {
       firstRender.current = false
       sizeWindow()
+      window.addEventListener("resize", sizeWindow)
     } else {
       storage.setItem('boards', boards);
       styledImportance()
@@ -72,6 +81,7 @@ function App() {
     return setAddElemBool(false)
 
   }, [addElemBool]);
+ 
 
   const [currentBoard, setCurrentBoard] = useState(null)
   const [currentItem, setCurrentItem] = useState(null)
