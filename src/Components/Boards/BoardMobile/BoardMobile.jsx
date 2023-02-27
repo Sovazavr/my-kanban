@@ -1,10 +1,10 @@
 import React from 'react'
 import { GlobalSVGSelector } from '../../svgSelector/GlobalSVGSelector'
 
-export const BoardMobile = ({board, setSelectedItem, deleteElement, popupActive, setPopupActive}) => {
-    
+export const BoardMobile = ({ board, setSelectedItem, deleteElement, popupActive, setPopupActive }) => {
+
     return (
-        
+
         <div className='board' key={board.id}>
             <div className='board__title'>
                 {board.id === 1
@@ -19,7 +19,8 @@ export const BoardMobile = ({board, setSelectedItem, deleteElement, popupActive,
                     : <div>{board.title}</div>
                 }
             </div>
-            {board.items.map(item =>
+            <>
+                {board.items.map(item =>
                     <div className='item'
                         key={item.id}
 
@@ -35,7 +36,7 @@ export const BoardMobile = ({board, setSelectedItem, deleteElement, popupActive,
                             <GlobalSVGSelector typeSvg='close' />
                         </label>
                     </div>)
-            }
+                }</>
         </div>
     )
 

@@ -1,46 +1,45 @@
 import React, { useCallback, useEffect, useState } from 'react'
 import { BoardMobile } from './BoardMobile/BoardMobile'
 import { GlobalSVGSelector } from '../svgSelector/GlobalSVGSelector'
-
+import { Swiper, SwiperSlide } from "swiper/react";
+import { Navigation } from "swiper";
+import "swiper/css";
+import "swiper/css/navigation";
 
 export const BoardsComponentMobile = ({ boards, setSelectedItem, deleteElement, popupActive, setPopupActive }) => {
-    const [selectedBoardIndex, setSelectedBoardIndex] = useState(0)
+   
 
-    const startSlide=useCallback((e)=>{
-        e.preveventDefault()
-    }, [])
+   
 
 
 
-    useEffect(() => {
-        let event = null;
-        const el = document.getElementById('slider')
-        el.addEventListener('touchstart', (e) => {
-            event=e
-        });
-        el.addEventListener('touchmove', (e) => {
-            console.log("Move alfa: " + (e.touches[0].pageX - event.touches[0].pageX))
-        });
-        el.addEventListener("touched", function (e) {
-            event = null;
-        });
-    }, []);
+
 
 
 
 
 
     return (
-        <div id='slider' className='boards__wrapper'>
-            <BoardMobile
-                board={boards[selectedBoardIndex]}
-                setSelectedItem={setSelectedItem}
-                deleteElement={deleteElement}
-                popupActive={popupActive}
-                setPopupActive={setPopupActive}
-            />
-        </div>
 
+        <>
+            <Swiper
+                navigation={true} modules={[Navigation]}
+                className='mySwiper'
+            >
+                <div className='boards__wrapper'>
+                    
+                    {boards.map(board =>
+                        <SwiperSlide>
+                            <BoardMobile board={board}
+                             setSelectedItem={setSelectedItem} 
+                             deleteElement={deleteElement} 
+                             popupActive={popupActive}
+                             setPopupActive={setPopupActive} />
+                        </SwiperSlide>
+                    )}
+                </div>
+            </Swiper>
+        </>
 
     )
 }

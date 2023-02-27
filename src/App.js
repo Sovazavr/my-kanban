@@ -53,6 +53,7 @@ function App() {
       } else {
         setMobileDevice(false)
       }
+      styledImportance()
       
     },
     [],

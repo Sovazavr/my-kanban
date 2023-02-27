@@ -1,7 +1,15 @@
 @import "./styled/variables.scss";
 
 $small: 321px;
+$middle: 370px;
+$iphonSe: 376px;
+$iphonSeHeight: 670px;
+
+$ipadmin: 720px;
+$ipadmax: 830px;
+$more_middle: 900px;
 $large: 1025px;
+
 @mixin respond-to($media) {
   @if $media == handhelds {
     @media only screen and (max-width: $small) {
@@ -15,7 +23,23 @@ $large: 1025px;
     @media only screen and (min-width: $large) {
       @content;
     }
-  }
+  } @else if $media == small-screens {
+    @media only screen and (min-width: $small) and (max-width: $middle) {
+      @content;
+    }
+  } @else if $media == serface-screens {
+    @media only screen and (min-width: $more_middle) and (max-width: $large) {
+      @content;
+    }
+  } @else if $media == ipad-screens {
+    @media only screen and (min-width: $ipadmin) and (max-width: $ipadmax) {
+      @content;
+    }
+  } @else if $media == iphonese-screens {
+    @media only screen and (min-width: $middle) and (max-width: $iphonSe) and (max-height: $iphonSeHeight) {
+      @content;
+    }
+  } 
 }
 
 * {
@@ -39,23 +63,24 @@ $large: 1025px;
   flex-wrap: wrap;
   @include respond-to(medium-screens) {
     all: initial;
-
+    flex-wrap: nowrap;
     display: flex;
     align-items: center;
     justify-content: center;
-    
   }
 }
+.swiper {
+  width: 100%;
+  height: 100%;
+  font-family: "Comfortaa";
+}
 
-.boards__slider {
-  overflow: hidden;
+.swiper-slide {
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
-.boards__slider.grab {
-  cursor: grab;
-}
-.boards__slider.grabbing {
-  cursor: grabbing;
-}
+
 .board {
   transition: 0.5s;
   min-width: 300px;
@@ -73,7 +98,24 @@ $large: 1025px;
   background-color: var(#{--card-background-default});
   box-shadow: var(#{--card-shadow-default});
   @include respond-to(medium-screens) {
-   
+    margin-left: 12%;
+  }
+  @include respond-to(small-screens) {
+    max-width: 220px;
+    margin-left: 8%;
+  }
+  @include respond-to(serface-screens) {
+    min-width: 700px;
+    margin-left: 11%;
+  }
+  @include respond-to(ipad-screens) {
+    min-width: 600px;
+    margin-left: 11%;
+  }
+  @include respond-to(iphonese-screens) {
+    min-width: 220px;
+    margin-left: 10%;
+    max-height: 500px;
   }
 }
 

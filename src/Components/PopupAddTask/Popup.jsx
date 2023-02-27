@@ -1,6 +1,7 @@
 import React, { useState } from 'react'
 import "./Popup.scss"
 import { storage } from '../../Storage/storage'
+import { GlobalSVGSelector } from '../svgSelector/GlobalSVGSelector'
 
 const Popup = ({ setPopupActive, boards, setBoards, setAddElemBool }) => {
 
@@ -29,7 +30,10 @@ const Popup = ({ setPopupActive, boards, setBoards, setAddElemBool }) => {
     return (
         <div id='closing' className='wrapper__popup' onClick={() => setPopupActive(false)}>
             <div className='popup__dash' onClick={e => e.stopPropagation()}>
+
                 <div className='popup__title'>Новая задача</div>
+
+
                 <div className='popup__content'>
                     <div className='popup__content__inputs'>
 
