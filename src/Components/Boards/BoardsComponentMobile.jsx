@@ -1,6 +1,6 @@
-import React, { useCallback, useEffect, useState } from 'react'
+import React from 'react'
 import { BoardMobile } from './BoardMobile/BoardMobile'
-import { GlobalSVGSelector } from '../svgSelector/GlobalSVGSelector'
+
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Navigation } from "swiper";
 import "swiper/css";

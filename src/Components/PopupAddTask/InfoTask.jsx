@@ -1,6 +1,6 @@
 import React from 'react'
 import "./Popup.scss"
-import { useState } from 'react'
+
 
 const InfoTask = ({ chekingChange, changeTask, setNewItemImp, setNewItemInfo, setNewItemName,  newItemName, newItemInfo, newItemImp}) => {
 

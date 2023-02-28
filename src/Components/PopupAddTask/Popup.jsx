@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import "./Popup.scss"
 import { storage } from '../../Storage/storage'
-import { GlobalSVGSelector } from '../svgSelector/GlobalSVGSelector'
+
 
 const Popup = ({ setPopupActive, boards, setBoards, setAddElemBool }) => {
 
