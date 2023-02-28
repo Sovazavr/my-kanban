@@ -11,6 +11,7 @@ import { GlobalSVGSelector } from './Components/svgSelector/GlobalSVGSelector';
 import { BoardsComponent } from './Components/Boards/BoardsComponent';
 import { BoardsComponentMobile } from './Components/Boards/BoardsComponentMobile';
 import { useCallback } from 'react';
+import { InfoWrapper } from './Components/PopupAddTask/InfoWrapper';
 
 
 
@@ -26,7 +27,11 @@ function App() {
   const [boards, setBoards] = useState(storage.getItem('boards') || firstBoards)
   const [addElemBool, setAddElemBool] = useState(false)
   const [mobileDevice, setMobileDevice] = useState(false)
+  const [currentBoard, setCurrentBoard] = useState(null)
+  const [currentItem, setCurrentItem] = useState(null)
+  const [selectedItem, setSelectedItem] = useState({})
 
+  const [popupActive, setPopupActive] = useState(false)
 
 
   function styledImportance() {
@@ -54,7 +59,7 @@ function App() {
         setMobileDevice(false)
       }
       styledImportance()
-      
+
     },
     [],
   )
@@ -82,13 +87,9 @@ function App() {
     return setAddElemBool(false)
 
   }, [addElemBool]);
- 
 
-  const [currentBoard, setCurrentBoard] = useState(null)
-  const [currentItem, setCurrentItem] = useState(null)
-  const [selectedItem, setSelectedItem] = useState({})
 
-  const [popupActive, setPopupActive] = useState(false)
+
 
   function dragOverHandler(e) {
     e.preventDefault()
@@ -164,7 +165,7 @@ function App() {
     }))
   }
 
-
+  
 
 
 
@@ -183,7 +184,9 @@ function App() {
       }
       {Object.keys(selectedItem).length === 0
         ? <></>
-        : <InfoTask
+        : <InfoWrapper
+          
+          mobileDevice={mobileDevice}
           selectedItem={selectedItem}
           setSelectedItem={setSelectedItem}
           boards={boards}
@@ -199,6 +202,7 @@ function App() {
           deleteElement={deleteElement}
           popupActive={popupActive}
           setPopupActive={setPopupActive}
+          setBoards={setBoards}
         />
         : <BoardsComponent
           boards={boards}

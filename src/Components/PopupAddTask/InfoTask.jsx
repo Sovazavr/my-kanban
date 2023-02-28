@@ -2,61 +2,8 @@ import React from 'react'
 import "./Popup.scss"
 import { useState } from 'react'
 
-const InfoTask = ({ selectedItem, setSelectedItem, boards, setBoards, setAddElemBool }) => {
+const InfoTask = ({ chekingChange, changeTask, setNewItemImp, setNewItemInfo, setNewItemName,  newItemName, newItemInfo, newItemImp}) => {
 
-    const [newItemName, setNewItemName] = useState(selectedItem.item.title)
-    const [newItemInfo, setNewItemInfo] = useState(selectedItem.item.info)
-    const [newItemImp, setNewItemImp] = useState(selectedItem.item.importance)
-
-    function chekingNull() {
-        if (!newItemName) {
-            alert('Название задачи не может быть пустым')
-            return false
-        }
-        return true
-    }
-
-    function changeTask() {
-        if (chekingNull()) {
-            if(newItemImp !== selectedItem.item.importance){
-                setAddElemBool(true)
-            }
-            const currentIndex = selectedItem.board.items.indexOf(selectedItem.item)
-            selectedItem.board.items.splice(currentIndex, 1)
-            selectedItem.board.items.splice(currentIndex, 0, {
-                id: selectedItem.item.id,
-                title: newItemName,
-                info: newItemInfo,
-                importance: newItemImp,
-            })
-
-            setBoards(boards.map(b => {
-
-                if (b.id === selectedItem.board.id) {
-                    return selectedItem.board
-                }
-                return b
-            }))
-
-            setBoards(boards)
-            setSelectedItem({})
-        }
-    }
-
-    function chekingChange() {
-        if (chekingNull()) {
-            if (newItemImp !== selectedItem.item.importance || newItemInfo !== selectedItem.item.info || newItemName !== selectedItem.item.title) {
-                const yesOrNot = window.confirm('Сохранить изменения?')
-                if (yesOrNot) {
-                    
-                    changeTask()
-                } else {
-                    setSelectedItem({})
-                }
-            }
-            setSelectedItem({})
-        }
-    }
 
 
     return (

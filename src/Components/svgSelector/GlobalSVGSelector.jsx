@@ -75,6 +75,31 @@ export const GlobalSVGSelector = ({ typeSvg }) => {
                 </svg>
 
             )
+        case 'arrowLeft':
+            return (
+                <svg width="39" height="43" viewBox="0 0 39 43" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M28.275 1.53577L11.1429 20.4251C11.0096 20.5629 10.9034 20.7295 10.8308 20.9143C10.7582 21.0992 10.7208 21.2986 10.7208 21.5001C10.7208 21.7015 10.7582 21.9009 10.8308 22.0858C10.9034 22.2707 11.0096 22.4372 11.1429 22.5751L28.275 41.4643" stroke="#4793ff" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" />
+                </svg>
+
+            )
+        case 'arrowRight':
+            return (
+                <svg width="39" height="43" viewBox="0 0 39 43" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M10.725 1.53577L27.8571 20.4251C27.9904 20.5629 28.0966 20.7295 28.1692 20.9143C28.2418 21.0992 28.2792 21.2986 28.2792 21.5001C28.2792 21.7015 28.2418 21.9009 28.1692 22.0858C28.0966 22.2707 27.9904 22.4372 27.8571 22.5751L10.725 41.4643" stroke="#4793ff" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" />
+                </svg>
+            )
+        case 'arrowLeftNoActive':
+            return (
+                <svg width="39" height="43" viewBox="0 0 39 43" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M28.275 1.53577L11.1429 20.4251C11.0096 20.5629 10.9034 20.7295 10.8308 20.9143C10.7582 21.0992 10.7208 21.2986 10.7208 21.5001C10.7208 21.7015 10.7582 21.9009 10.8308 22.0858C10.9034 22.2707 11.0096 22.4372 11.1429 22.5751L28.275 41.4643" stroke="#4793FF" stroke-opacity="0.3" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" />
+                </svg>
+            )
+        case 'arrowRightNoActive':
+            return (
+                <svg width="39" height="43" viewBox="0 0 39 43" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M10.725 1.53577L27.8571 20.4251C27.9904 20.5629 28.0966 20.7295 28.1692 20.9143C28.2418 21.0992 28.2792 21.2986 28.2792 21.5001C28.2792 21.7015 28.2418 21.9009 28.1692 22.0858C28.0966 22.2707 27.9904 22.4372 27.8571 22.5751L10.725 41.4643" stroke="#4793FF" stroke-opacity="0.3" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" />
+                </svg>
+            )
         default:
             break;
     }

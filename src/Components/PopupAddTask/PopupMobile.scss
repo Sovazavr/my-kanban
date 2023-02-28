@@ -11,15 +11,14 @@ $large: 1025px;
     }
 }
 
-.wrapper__popup {
+.wrapper__popup__mobile {
     position: absolute;
     width: 100vw;
     height: 100vh;
     background-color: rgba($color: #000000, $alpha: 0.5);
     z-index: 10001;
-    
 }
-.popup__dash {
+.popup__dash__mobile {
     width: 50%;
     height: 50%;
     display: flex;
@@ -45,11 +44,11 @@ $large: 1025px;
         min-height: 75%;
     }
 }
-.text-field__input {
+.text-field__input__mobile {
     &:focus {
         outline: none;
     }
-    
+
     width: 40%;
     outline: 0;
     border-width: 0 0 2px;
@@ -65,7 +64,7 @@ $large: 1025px;
         margin-bottom: 2%;
     }
 }
-.text-field__textarea {
+.text-field__textarea__mobile {
     &:focus {
         outline: none;
     }
@@ -89,15 +88,15 @@ $large: 1025px;
     }
     @include respond-to(mobile) {
         padding: 1.5rem;
-        height: 80%;
-        margin-bottom: 2%;
+        height: 60%;
+        margin-bottom: 1%;
     }
 }
-.text-field__input__list {
+.text-field__input__list__mobile {
     background-color: var(#{--card-background-default});
 }
 
-.popup__title {
+.popup__title__mobile {
     margin-bottom: 10px;
     align-items: center;
     display: flex;
@@ -106,13 +105,13 @@ $large: 1025px;
     font-family: "Comfortaa";
 }
 
-.popup__content {
+.popup__content__mobile {
     display: flex;
     flex-direction: column;
     justify-content: flex-start;
     height: 100%;
 }
-.popup__content__inputs {
+.popup__content__inputs__mobile {
     display: flex;
     width: 100%;
     justify-content: space-around;
@@ -123,7 +122,7 @@ $large: 1025px;
     }
 }
 
-.popup__button {
+.popup__button__mobile {
     border-radius: 0 0 10px 10px;
     outline: none;
     padding: 5px;
@@ -137,8 +136,17 @@ $large: 1025px;
         animation: add_button 1s;
     }
     @include respond-to(mobile) {
-       height: 10%;
+        height: 50%;
+        width: 60%;
     }
+}
+
+.arrowWrapper {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    height: 20%;
+   
 }
 
 @keyframes add_button {
