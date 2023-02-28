@@ -1,18 +1,18 @@
 
 import { useLayoutEffect, useRef, useState } from 'react';
 import './App.scss';
-
+import React from 'react';
 import Popup from './Components/PopupAddTask/Popup';
 import Header from './Components/Header/Header';
 import { storage } from './Storage/storage';
-import InfoTask from './Components/PopupAddTask/InfoTask';
+
 import { useEffect } from 'react';
-import { GlobalSVGSelector } from './Components/svgSelector/GlobalSVGSelector';
+
 import { BoardsComponent } from './Components/Boards/BoardsComponent';
-import { BoardsComponentMobile } from './Components/Boards/BoardsComponentMobile';
+
 import { useCallback } from 'react';
 import { InfoWrapper } from './Components/PopupAddTask/InfoWrapper';
-
+const BoardsComponentMobile = React.lazy(() => import('./Components/Boards/BoardsComponentMobile'));
 
 
 function App() {

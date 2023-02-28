@@ -8,7 +8,7 @@ import "swiper/css/navigation";
 import "swiper/css/pagination";
 import { Pagination } from "swiper";
 
-export const BoardsComponentMobile = ({ boards, setBoards, setSelectedItem, deleteElement, popupActive, setPopupActive }) => {
+ const BoardsComponentMobile = ({ boards, setBoards, setSelectedItem, deleteElement, popupActive, setPopupActive }) => {
 
 
 
@@ -50,3 +50,4 @@ export const BoardsComponentMobile = ({ boards, setBoards, setSelectedItem, dele
 
     )
 }
+export default BoardsComponentMobile
