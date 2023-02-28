@@ -12,6 +12,8 @@ import { BoardsComponent } from './Components/Boards/BoardsComponent';
 
 import { useCallback } from 'react';
 import { InfoWrapper } from './Components/PopupAddTask/InfoWrapper';
+import { Suspense } from 'react';
+import Loading from './Components/Loader/Loading';
 const BoardsComponentMobile = React.lazy(() => import('./Components/Boards/BoardsComponentMobile'));
 
 
@@ -165,7 +167,7 @@ function App() {
     }))
   }
 
-  
+
 
 
 
@@ -185,7 +187,7 @@ function App() {
       {Object.keys(selectedItem).length === 0
         ? <></>
         : <InfoWrapper
-          
+
           mobileDevice={mobileDevice}
           selectedItem={selectedItem}
           setSelectedItem={setSelectedItem}
@@ -196,14 +198,16 @@ function App() {
       }
       <Header />
       {mobileDevice
-        ? <BoardsComponentMobile
-          boards={boards}
-          setSelectedItem={setSelectedItem}
-          deleteElement={deleteElement}
-          popupActive={popupActive}
-          setPopupActive={setPopupActive}
-          setBoards={setBoards}
-        />
+        ? <Suspense fallback={<div className='loader__wrapper'><Loading /></div>}>
+          <BoardsComponentMobile
+            boards={boards}
+            setSelectedItem={setSelectedItem}
+            deleteElement={deleteElement}
+            popupActive={popupActive}
+            setPopupActive={setPopupActive}
+            setBoards={setBoards}
+          />
+        </Suspense>
         : <BoardsComponent
           boards={boards}
           dragOverHandler={dragOverHandler}

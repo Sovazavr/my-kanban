@@ -127,6 +127,13 @@ $large: 1025px;
     height: 70vh;
   }
 }
+.loader__wrapper{
+  height: 100vh;
+  width: 100vw;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
 
 .board__title {
   font-size: 1.5rem;
