@@ -2,19 +2,18 @@
 import { useLayoutEffect, useRef, useState } from 'react';
 import './App.scss';
 import React from 'react';
-import Popup from './Components/PopupAddTask/Popup';
 import Header from './Components/Header/Header';
 import { storage } from './Storage/storage';
-
 import { useEffect } from 'react';
-
-import { BoardsComponent } from './Components/Boards/BoardsComponent';
-
 import { useCallback } from 'react';
-import { InfoWrapper } from './Components/PopupAddTask/InfoWrapper';
 import { Suspense } from 'react';
 import Loading from './Components/Loader/Loading';
-const BoardsComponentMobile = React.lazy(() => import('./Components/Boards/BoardsComponentMobile'));
+import CanbanPage from './pages/CanbanPage';
+import { Route, Routes } from 'react-router-dom';
+import LoginPage from './pages/LoginPage';
+import RegisterPage from './pages/RegisterPage';
+
+
 
 
 function App() {
@@ -27,13 +26,11 @@ function App() {
   ])
 
   const [boards, setBoards] = useState(storage.getItem('boards') || firstBoards)
-  const [addElemBool, setAddElemBool] = useState(false)
-  const [mobileDevice, setMobileDevice] = useState(false)
-  const [currentBoard, setCurrentBoard] = useState(null)
-  const [currentItem, setCurrentItem] = useState(null)
-  const [selectedItem, setSelectedItem] = useState({})
 
-  const [popupActive, setPopupActive] = useState(false)
+  const [mobileDevice, setMobileDevice] = useState(false)
+  const [addElemBool, setAddElemBool] = useState(false)
+
+
 
 
   function styledImportance() {
@@ -93,79 +90,8 @@ function App() {
 
 
 
-  function dragOverHandler(e) {
-    e.preventDefault()
-    if (e.target.className === "item") {
-      e.target.style.boxShadow = "0 4px 3px gray"
-    }
-  }
-
-  function dragLeaveHandler(e) {
-    e.target.style.boxShadow = "none"
-  }
-
-  function dragStartHandler(e, board, item) {
-    setCurrentBoard(board)
-    setCurrentItem(item)
-  }
-
-  function dragEndHandler(e) {
-    e.target.style.boxShadow = "none"
-  }
-
-  function dropHandler(e, board, item) {
-    e.preventDefault()
-    e.stopPropagation()
-    e.target.style.boxShadow = "none"
-    const currentIndex = currentBoard.items.indexOf(currentItem)
-    currentBoard.items.splice(currentIndex, 1)
-
-    const dropIndex = board.items.indexOf(item)
-    board.items.splice(dropIndex + 1, 0, currentItem)
-
-    setBoards(boards.map(b => {
-      if (b.id === board.id) {
-        return board
-      }
-      if (b.id === currentBoard.id) {
-        return currentBoard
-      }
-      return b
-    }))
-  }
 
 
-  function dropCardHandler(e, board) {
-    board.items.push(currentItem)
-
-    const currentIndex = currentBoard.items.indexOf(currentItem)
-    currentBoard.items.splice(currentIndex, 1)
-
-    setBoards(boards.map(b => {
-      if (b.id === board.id) {
-        return board
-      }
-      if (b.id === currentBoard.id) {
-        return currentBoard
-      }
-      return b
-    }))
-  }
-
-  function deleteElement(e, board, item) {
-    e.stopPropagation()
-
-    const currentIndex = board.items.indexOf(item)
-    board.items.splice(currentIndex, 1)
-
-    setBoards(boards.map(b => {
-
-      if (b.id === board.id) {
-        return board
-      }
-      return b
-    }))
-  }
 
 
 
@@ -173,57 +99,19 @@ function App() {
 
 
   return (
+    
     <div className="app">
       <Header />
-      {popupActive
-        ? <Popup
-          setPopupActive={setPopupActive}
-          boards={boards}
-          setBoards={setBoards}
-          setAddElemBool={setAddElemBool}
-        />
-        : <></>
-      }
-      {Object.keys(selectedItem).length === 0
-        ? <></>
-        : <InfoWrapper
+      <Routes>
+        <Route path='/' element={
+          <CanbanPage mobileDevice={mobileDevice} boards={boards} setBoards={setBoards} setAddElemBool={setAddElemBool} />
+        } />
+        <Route exact path='/login' element={<LoginPage />} />
+        <Route exact path='/register' element={<RegisterPage />} />
 
-          mobileDevice={mobileDevice}
-          selectedItem={selectedItem}
-          setSelectedItem={setSelectedItem}
-          boards={boards}
-          setBoards={setBoards}
-          setAddElemBool={setAddElemBool}
-        />
-      }
-
-      {mobileDevice
-        ? <Suspense fallback={<div className='loader__wrapper'><Loading /></div>}>
-          <BoardsComponentMobile
-            boards={boards}
-            setSelectedItem={setSelectedItem}
-            deleteElement={deleteElement}
-            popupActive={popupActive}
-            setPopupActive={setPopupActive}
-            setBoards={setBoards}
-          />
-        </Suspense>
-        : <BoardsComponent
-          boards={boards}
-          dragOverHandler={dragOverHandler}
-          dropCardHandler={dropCardHandler}
-          dropHandler={dropHandler}
-          dragEndHandler={dragEndHandler}
-          dragStartHandler={dragStartHandler}
-          dragLeaveHandler={dragLeaveHandler}
-          setSelectedItem={setSelectedItem}
-          deleteElement={deleteElement}
-          popupActive={popupActive}
-          setPopupActive={setPopupActive}
-        />
-      }
-
+      </Routes>
     </div>
+    
   );
 }
 
