@@ -174,7 +174,7 @@ function App() {
 
   return (
     <div className="app">
-
+      <Header />
       {popupActive
         ? <Popup
           setPopupActive={setPopupActive}
@@ -196,7 +196,7 @@ function App() {
           setAddElemBool={setAddElemBool}
         />
       }
-      <Header />
+
       {mobileDevice
         ? <Suspense fallback={<div className='loader__wrapper'><Loading /></div>}>
           <BoardsComponentMobile
