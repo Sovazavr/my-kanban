@@ -96,7 +96,7 @@ const CanbanPage = ({
 
     return (
         <>
-            <Navigate to="/login" />
+            <Navigate to="/login" /> 
             {popupActive
                 ? <Popup
                     setPopupActive={setPopupActive}

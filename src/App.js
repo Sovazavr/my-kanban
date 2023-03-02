@@ -99,60 +99,22 @@ function App() {
 
 
   return (
-    
+
     <div className="app">
       <Header />
-      <CanbanPage/>
-      {/* {popupActive
-        ? <Popup
-          setPopupActive={setPopupActive}
-          boards={boards}
-          setBoards={setBoards}
-          setAddElemBool={setAddElemBool}
-        />
-        : <></>
-      }
-      {Object.keys(selectedItem).length === 0
-        ? <></>
-        : <InfoWrapper
-
+      <Routes>
+        <Route path='/' element={<CanbanPage
           mobileDevice={mobileDevice}
-          selectedItem={selectedItem}
-          setSelectedItem={setSelectedItem}
           boards={boards}
           setBoards={setBoards}
           setAddElemBool={setAddElemBool}
-        />
-      }
-
-      {mobileDevice
-        ? <Suspense fallback={<div className='loader__wrapper'><Loading /></div>}>
-          <BoardsComponentMobile
-            boards={boards}
-            setSelectedItem={setSelectedItem}
-            deleteElement={deleteElement}
-            popupActive={popupActive}
-            setPopupActive={setPopupActive}
-            setBoards={setBoards}
-          />
-        </Suspense>
-        : <BoardsComponent
-          boards={boards}
-          dragOverHandler={dragOverHandler}
-          dropCardHandler={dropCardHandler}
-          dropHandler={dropHandler}
-          dragEndHandler={dragEndHandler}
-          dragStartHandler={dragStartHandler}
-          dragLeaveHandler={dragLeaveHandler}
-          setSelectedItem={setSelectedItem}
-          deleteElement={deleteElement}
-          popupActive={popupActive}
-          setPopupActive={setPopupActive}
-        />
-      } */}
+        />} />
+        <Route path='/login' element={< LoginPage />} />
+        <Route path='/register' element={< RegisterPage />} />
+      </Routes>
 
     </div>
-    
+
   );
 }
 
