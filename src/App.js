@@ -102,7 +102,8 @@ function App() {
     
     <div className="app">
       <Header />
-      {popupActive
+      <CanbanPage/>
+      {/* {popupActive
         ? <Popup
           setPopupActive={setPopupActive}
           boards={boards}
@@ -148,7 +149,7 @@ function App() {
           popupActive={popupActive}
           setPopupActive={setPopupActive}
         />
-      }
+      } */}
 
     </div>
     
