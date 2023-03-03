@@ -27,57 +27,24 @@ function App() {
 
   const [boards, setBoards] = useState(storage.getItem('boards') || firstBoards)
 
-  const [mobileDevice, setMobileDevice] = useState(false)
   const [addElemBool, setAddElemBool] = useState(false)
-
-
 
 
   function styledImportance() {
     const impElement = document.getElementsByClassName('item__importance')
     for (let i = 0; i < impElement.length; i++) {
-      if (impElement[i].innerHTML === 'Основная') {
-        impElement[i].style.color = "red";
-      } else if (impElement[i].innerHTML === 'Важно') {
-        impElement[i].style.color = "orange";
-      } else if (impElement[i].innerHTML === 'Не важно') {
-        impElement[i].style.color = "green";
-      }
+        if (impElement[i].innerHTML === 'Основная') {
+            impElement[i].style.color = "red";
+        } else if (impElement[i].innerHTML === 'Важно') {
+            impElement[i].style.color = "orange";
+        } else if (impElement[i].innerHTML === 'Не важно') {
+            impElement[i].style.color = "green";
+        }
     }
 
-  }
+}
 
-  const sizeWindow = useCallback(
-    () => {
-      const windowInnerWidth = window.innerWidth
-      const windowInnerHeight = window.innerHeight
-
-      if (windowInnerWidth >= 320 && windowInnerWidth <= 1025) {
-        setMobileDevice(true)
-      } else {
-        setMobileDevice(false)
-      }
-      styledImportance()
-
-    },
-    [],
-  )
-
-
-
-
-
-  let firstRender = useRef(true)
-  useLayoutEffect(() => {
-    if (firstRender.current) {
-      firstRender.current = false
-      sizeWindow()
-      window.addEventListener("resize", sizeWindow)
-    } else {
-      storage.setItem('boards', boards);
-      styledImportance()
-    }
-  }, [boards])
+ 
 
   useEffect(() => {
     if (addElemBool) {
@@ -104,7 +71,7 @@ function App() {
       <Header />
       <Routes>
         <Route path='/' element={<CanbanPage
-          mobileDevice={mobileDevice}
+          styledImportance={styledImportance}
           boards={boards}
           setBoards={setBoards}
           setAddElemBool={setAddElemBool}

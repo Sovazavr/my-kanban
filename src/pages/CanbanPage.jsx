@@ -1,23 +1,59 @@
-import React, { useState, Suspense } from 'react'
+import React, { useState, Suspense, useRef, useLayoutEffect, useCallback } from 'react'
 import Popup from '../Components/PopupAddTask/Popup'
 import { InfoWrapper } from '../Components/PopupAddTask/InfoWrapper'
 
 import { BoardsComponent } from '../Components/Boards/BoardsComponent'
 import Loading from '../Components/Loader/Loading'
 import { Navigate } from 'react-router-dom'
+import { useAuth } from "../hooks/useAuth"
+import { useDispatch } from 'react-redux'
+import { storage } from '../Storage/storage'
 const BoardsComponentMobile = React.lazy(() => import('../Components/Boards/BoardsComponentMobile'));
 
 const CanbanPage = ({
-    mobileDevice, boards, setBoards, setAddElemBool
+    boards, setBoards, setAddElemBool, styledImportance
 }) => {
 
+    const [mobileDevice, setMobileDevice] = useState(false)
     const [popupActive, setPopupActive] = useState(false)
     const [currentBoard, setCurrentBoard] = useState(null)
     const [currentItem, setCurrentItem] = useState(null)
     const [selectedItem, setSelectedItem] = useState({})
+    const { isAuth, email } = useAuth()
+    const dispatch = useDispatch()
+
+   
+
+    const sizeWindow = useCallback(
+        () => {
+            const windowInnerWidth = window.innerWidth
+            const windowInnerHeight = window.innerHeight
+
+            if (windowInnerWidth >= 320 && windowInnerWidth <= 1025) {
+                setMobileDevice(true)
+            } else {
+                setMobileDevice(false)
+            }
+            styledImportance()
+        },
+        [],
+    )
 
 
 
+
+
+    let firstRender = useRef(true)
+    useLayoutEffect(() => {
+        if (firstRender.current) {
+            firstRender.current = false
+            sizeWindow()
+            window.addEventListener("resize", sizeWindow)
+        } else {
+            storage.setItem('boards', boards);
+            styledImportance()
+        }
+    }, [boards])
 
     function dragOverHandler(e) {
         e.preventDefault()
@@ -94,9 +130,9 @@ const CanbanPage = ({
     }
 
 
-    return (
+    return isAuth ? (
         <>
-            <Navigate to="/login" /> 
+
             {popupActive
                 ? <Popup
                     setPopupActive={setPopupActive}
@@ -145,6 +181,8 @@ const CanbanPage = ({
                 />
             }
         </>
+    ) : (
+        <Navigate to="/login" />
     )
 }
 export default CanbanPage

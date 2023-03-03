@@ -3,13 +3,18 @@ import { useTheme } from '../../hooks/useTheme'
 import { GlobalSVGSelector } from '../svgSelector/GlobalSVGSelector'
 import { Theme } from '../../ThemeChange/context/ThemeContext'
 import "./Header.scss"
+import { useAuth } from '../../hooks/useAuth'
+import { removeUser } from '../../store/slices/userSlice'
+import { useDispatch } from 'react-redux'
 
 const Header = () => {
-
+    const { isAuth, email } = useAuth()
+    const dispatch = useDispatch()
     const theme = useTheme()
     function changeTheme() {
         theme.changeTheme(theme.theme === Theme.LIGHT ? Theme.DARK : Theme.LIGHT)
     }
+
 
     return (
         <div className='header__wrapper'>
@@ -23,7 +28,17 @@ const Header = () => {
                         </div>
 
                     </div>
+
+
                 </div>
+                {isAuth
+                    ? <button
+                        onClick={() => dispatch(removeUser())}
+                    >
+                        Log out from {email}
+                    </button>
+                    : <></>
+                }
             </div>
         </div>
     )
